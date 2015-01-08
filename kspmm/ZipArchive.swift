@@ -22,6 +22,13 @@ class ZipArchive {
         }
     }
     
+    func listFiles() -> [String] {
+        return map(self.archive.entries as [ZZArchiveEntry]) {
+            (entry: ZZArchiveEntry) -> String in
+            return entry.fileName
+        }
+    }
+    
     func unzipToDirectory(directory: NSURL, afterBlock: (String -> Void)) -> Bool {
         let fileManager = NSFileManager.defaultManager();
         var error: NSErrorPointer = nil
@@ -58,5 +65,9 @@ class ZipArchive {
             }
         }
         return true
+    }
+    
+    func entries() -> [ZZArchiveEntry] {
+        return self.archive.entries as [ZZArchiveEntry]
     }
 }
