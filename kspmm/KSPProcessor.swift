@@ -45,20 +45,24 @@ class KSPProcessor {
         let (err, config) = KSPProcessor.loadConfig(self.targetDirectory)
         if let e = err {
             NSLog("error initializing processor: \(e.localizedDescription)")
-            self.config = [KSPInstalledModsKey: []]
+            self.config = KSPProcessor.initialConfig()
             if let e = self.saveConfig() {
                 return nil
             }
         } else {
-            self.config = config
+            self.config = config!
         }
+    }
+    
+    class func initialConfig() -> [String: AnyObject] {
+        return [KSPInstalledModsKey: []]
     }
     
     class func configFileURL(directory: NSURL) -> NSURL {
         return directory.URLByAppendingPathComponent(".kspmm")
     }
     
-    class func loadConfig(directory: NSURL) -> (NSError?, [String:AnyObject]) {
+    class func loadConfig(directory: NSURL) -> (NSError?, [String:AnyObject]?) {
         let url = configFileURL(directory)
         println("looking for config file on: \(url.absoluteString)")
         return parseJSONFile(url)
@@ -117,6 +121,8 @@ class KSPProcessor {
     
     func checkUniqueFile(filename: String) -> Bool {
         //TODO: stub
+        // ModuleManager
+        // KSPAPIExtensions
         return false
     }
 }
