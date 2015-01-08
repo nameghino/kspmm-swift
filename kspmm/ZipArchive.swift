@@ -23,7 +23,7 @@ class ZipArchive {
     }
     
     func listFiles() -> [String] {
-        return map(self.archive.entries as [ZZArchiveEntry]) {
+        return map(self.entries()) {
             (entry: ZZArchiveEntry) -> String in
             return entry.fileName
         }
