@@ -101,9 +101,9 @@
 		35086D9A1A5D8E61002A211D /* kspmm */ = {
 			isa = PBXGroup;
 			children = (
-				35086D9B1A5D8E61002A211D /* main.swift */,
-				35086DA21A5D9611002A211D /* Podfile */,
 				35086E311A5D98E5002A211D /* kspmm-Bridging-Header.h */,
+				35086DA21A5D9611002A211D /* Podfile */,
+				35086D9B1A5D8E61002A211D /* main.swift */,
 				357824191A5ED11E00969F51 /* KSPProcessor.swift */,
 				3578241B1A5ED16000969F51 /* KSPMod.swift */,
 				3578241D1A5ED1D100969F51 /* ZipArchive.swift */,
