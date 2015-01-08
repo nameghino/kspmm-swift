@@ -14,11 +14,32 @@ class KSPMod {
     let name: String
     
     init(url: NSURL) {
+
+        let ar = ZipArchive(file: url)!
+        // find mod name
+
+        
+        for entry in ar.entries() {
+            let filename = entry.fileName.lowercaseString as String
+        }
+        
+        self.archive = ar
         self.name = (url.lastPathComponent.componentsSeparatedByString(".").first)!
-        self.archive = ZipArchive(file: url)!
     }
     
     func urlInProcessor(processor: KSPProcessor) -> NSURL {
         return NSURL()
+    }
+    
+    func listFiles() -> [String] {
+        return self.archive.listFiles()
+    }
+    
+    func gamedataFiles() -> [String] {
+        return filter(self.listFiles()) {
+            (filename: String) -> (Bool) in
+            let s = filename as NSString
+            return s.lowercaseString.hasPrefix("gamedata")
+        }
     }
 }
