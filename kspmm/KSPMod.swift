@@ -22,7 +22,6 @@ class KSPMod {
         let regexp = NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.DotMatchesLineSeparators, error: &error)
         for entry in ar.entries() {
             let filename = entry.fileName.lowercaseString as String
-            regexp
         }
         
         self.archive = ar
