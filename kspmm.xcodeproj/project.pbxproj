@@ -11,6 +11,9 @@
 		35086E301A5D9715002A211D /* libzipzap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35086E2B1A5D9706002A211D /* libzipzap.a */; };
 		35086E361A5D9A84002A211D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 35086E351A5D9A84002A211D /* libz.dylib */; };
 		35086E381A5D9A8C002A211D /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35086E371A5D9A8C002A211D /* ApplicationServices.framework */; };
+		3578241A1A5ED11E00969F51 /* KSPProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357824191A5ED11E00969F51 /* KSPProcessor.swift */; };
+		3578241C1A5ED16000969F51 /* KSPMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3578241B1A5ED16000969F51 /* KSPMod.swift */; };
+		3578241E1A5ED1D100969F51 /* ZipArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3578241D1A5ED1D100969F51 /* ZipArchive.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +60,9 @@
 		35086E311A5D98E5002A211D /* kspmm-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "kspmm-Bridging-Header.h"; sourceTree = "<group>"; };
 		35086E351A5D9A84002A211D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		35086E371A5D9A8C002A211D /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		357824191A5ED11E00969F51 /* KSPProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSPProcessor.swift; sourceTree = "<group>"; };
+		3578241B1A5ED16000969F51 /* KSPMod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSPMod.swift; sourceTree = "<group>"; };
+		3578241D1A5ED1D100969F51 /* ZipArchive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZipArchive.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +104,9 @@
 				35086D9B1A5D8E61002A211D /* main.swift */,
 				35086DA21A5D9611002A211D /* Podfile */,
 				35086E311A5D98E5002A211D /* kspmm-Bridging-Header.h */,
+				357824191A5ED11E00969F51 /* KSPProcessor.swift */,
+				3578241B1A5ED16000969F51 /* KSPMod.swift */,
+				3578241D1A5ED1D100969F51 /* ZipArchive.swift */,
 			);
 			path = kspmm;
 			sourceTree = "<group>";
@@ -198,7 +207,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3578241E1A5ED1D100969F51 /* ZipArchive.swift in Sources */,
 				35086D9C1A5D8E61002A211D /* main.swift in Sources */,
+				3578241A1A5ED11E00969F51 /* KSPProcessor.swift in Sources */,
+				3578241C1A5ED16000969F51 /* KSPMod.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +342,7 @@
 				35086DA11A5D8E61002A211D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
