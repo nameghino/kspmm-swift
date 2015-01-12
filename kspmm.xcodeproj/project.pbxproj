@@ -14,6 +14,7 @@
 		3578241A1A5ED11E00969F51 /* KSPProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357824191A5ED11E00969F51 /* KSPProcessor.swift */; };
 		3578241C1A5ED16000969F51 /* KSPMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3578241B1A5ED16000969F51 /* KSPMod.swift */; };
 		3578241E1A5ED1D100969F51 /* ZipArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3578241D1A5ED1D100969F51 /* ZipArchive.swift */; };
+		35E398211A640C1C00B7D8A5 /* String+SwiftShouldHaveThis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E398201A640C1C00B7D8A5 /* String+SwiftShouldHaveThis.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		357824191A5ED11E00969F51 /* KSPProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSPProcessor.swift; sourceTree = "<group>"; };
 		3578241B1A5ED16000969F51 /* KSPMod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSPMod.swift; sourceTree = "<group>"; };
 		3578241D1A5ED1D100969F51 /* ZipArchive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZipArchive.swift; sourceTree = "<group>"; };
+		35E398201A640C1C00B7D8A5 /* String+SwiftShouldHaveThis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+SwiftShouldHaveThis.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				357824191A5ED11E00969F51 /* KSPProcessor.swift */,
 				3578241B1A5ED16000969F51 /* KSPMod.swift */,
 				3578241D1A5ED1D100969F51 /* ZipArchive.swift */,
+				35E398201A640C1C00B7D8A5 /* String+SwiftShouldHaveThis.swift */,
 			);
 			path = kspmm;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35E398211A640C1C00B7D8A5 /* String+SwiftShouldHaveThis.swift in Sources */,
 				3578241E1A5ED1D100969F51 /* ZipArchive.swift in Sources */,
 				35086D9C1A5D8E61002A211D /* main.swift in Sources */,
 				3578241A1A5ED11E00969F51 /* KSPProcessor.swift in Sources */,
