@@ -14,18 +14,25 @@ class KSPMod {
     let name: String
     
     init(url: NSURL) {
-
         let ar = ZipArchive(file: url)!
         // find mod name
         let pattern = "GameData/([^/]+)/$"
         var error: NSError?
-        let regexp = NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.DotMatchesLineSeparators, error: &error)
+        let regexp = NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive, error: &error)
+
+        var modName = "NO_MOD_NAME"
         for entry in ar.entries() {
-            let filename = entry.fileName.lowercaseString as String
+            let filename = entry.fileName as String
+            if let match = regexp?.firstMatchInString(filename, options: .allZeros, range: filename.fullRange) {
+                let matchRange = match.rangeAtIndex(1)
+                let t_modName = filename.substring(matchRange)
+                modName = t_modName
+                break
+            }
         }
-        
+
+        self.name = modName
         self.archive = ar
-        self.name = (url.lastPathComponent.componentsSeparatedByString(".").first)!
     }
     
     func urlInProcessor(processor: KSPProcessor) -> NSURL {
