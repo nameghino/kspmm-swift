@@ -90,8 +90,6 @@ if (startType == .KSPMMNotEnoughArguments) {
 let zipPath = parsedArgs["ModFile"] as String!
 let zipURL = NSURL(fileURLWithPath: zipPath.stringByStandardizingPath)!
 let mod = KSPMod(url: zipURL)
-let files = mod.gamedataFiles()
-println("files: \(files)")
 
 //FIXME: makes no sense at all... effin' swift
 var kspPath: String = ""
@@ -103,7 +101,7 @@ if (startType == .KSPMMSpecificKSPInstance) {
 let kspURL = NSURL(fileURLWithPath: kspPath)!
 
 if let processor = KSPProcessor(targetDirectory:kspURL) {
-    //processor.installMod(mod)
+    processor.installMod(mod)
 }
 
 
