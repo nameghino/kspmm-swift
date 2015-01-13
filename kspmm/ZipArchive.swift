@@ -29,6 +29,11 @@ class ZipArchive {
         }
     }
     
+    func extractFile(filepath: String, toURL url: NSURL) -> NSError? {
+        println("extracting \"\(filepath)\" to \"\(url.absoluteString)\"")
+        return nil
+    }
+    
     func unzipToDirectory(directory: NSURL, afterBlock: (String -> Void)) -> Bool {
         let fileManager = NSFileManager.defaultManager();
         var error: NSErrorPointer = nil
