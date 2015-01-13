@@ -44,6 +44,22 @@ class KSPMod {
     }
     
     func install(processor: KSPProcessor) -> ([String]?, NSError?) {
+        
+        func findGameDataDirectory(directory: NSURL) -> Void {
+        }
+        
+        let fileManager = NSFileManager.defaultManager()
+        let tmpURL = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingPathComponent("kspmm-\(name)"), isDirectory: true)
+        var installedFiles = [String]()
+        self.archive.unzipToDirectory(tmpURL!) { installedFiles.append($0) }
+        
+        // locate gamedata dir in tmp:
+        // if exists: move tmp/kspmm-<modname>/gamedata/ contents into ksp gamedata
+        // if not exists: move tmp/kspmm-<modname>/ contents into ksp gamedata
+        
+        
+        
+        /*
         var installed = [String]()
         for filepath in self.listFiles() {
             let (targetURL, indexEntry) = processor.installURLForFile(filepath)
@@ -58,6 +74,8 @@ class KSPMod {
             }
         }
         return (installed, nil)
+        */
+        return (installedFiles, nil)
      }
     
     func gamedataFiles() -> [String] {
