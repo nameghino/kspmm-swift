@@ -46,6 +46,7 @@ class KSPProcessor {
         if let e = err {
             NSLog("error initializing processor: \(e.localizedDescription)")
             self.config = KSPProcessor.initialConfig()
+            self.config[KSPDirectoryKey] = targetDirectory.absoluteString
             if let e = self.saveConfig() {
                 return nil
             }
@@ -74,33 +75,71 @@ class KSPProcessor {
         newConfigData?.writeToURL(KSPProcessor.configFileURL(self.targetDirectory), atomically: true)
         if let e = error {
             NSLog("error journaling: \(e.localizedDescription)")
+            return error
         }
-        return error
+        return nil
+    }
+    
+    func installURLForFile(filepath: String) -> (NSURL, String) {
+        
+        func processGamedataPrefix(kspURL: NSURL?, gamedataPrefix: String, filepath: String) -> (NSURL, String) {
+            if let fileURL = kspURL?.URLByAppendingPathComponent(filepath) {
+                let indexEntry = filepath.stringByReplacingOccurrencesOfString(gamedataPrefix, withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range:
+                    Range(start: filepath.startIndex, end: filepath.endIndex)
+                )
+                return (fileURL, indexEntry)
+            }
+            return (NSURL(), "")
+        }
+        
+        let kspDirectory = self.config[KSPDirectoryKey] as String
+        let kspURL = NSURL(fileURLWithPath: kspDirectory.stringByStandardizingPath)
+        // if filepath begins with gamedata
+        let gamedataPrefix = "gamedata/"
+        if filepath.lowercaseString.hasPrefix(gamedataPrefix) {
+            return processGamedataPrefix(kspURL, gamedataPrefix, filepath)
+        }
+        
+        // search for gamedata down the tree 
+        let components = filepath.componentsSeparatedByString("/")
+        for (index, component) in enumerate(components)  {
+            if component == gamedataPrefix {
+                let range = index..<(countElements(components))
+                let modifiedPath = components[range].reduce("") {
+                    (prev: String, item: String) -> String in
+                    return prev + "/" + item
+                }
+                return processGamedataPrefix(kspURL, gamedataPrefix, modifiedPath)
+            }
+        }
+        return (NSURL(), "")
     }
     
     func installMod(mod: KSPMod) -> NSError? {
-        NSLog("about to install \"\(mod.name)\"")
-        var gamedataDir = self.config[KSPDirectoryKey]?.stringByAppendingPathComponent("GameData").stringByAppendingPathComponent(mod.name)
-        gamedataDir = gamedataDir?.stringByStandardizingPath
-        let gamedataURL = NSURL(fileURLWithPath: gamedataDir!)!
         
-        var files = [String]()
-        NSLog("\tunzipping files...")
-        mod.archive.unzipToDirectory(gamedataURL) {
-            (filename: String) -> Void in
-            files.append(filename)
-            return
-        }
-        NSLog("\tunzipping done, bookkeeping...")
+        // determine install point
+        // use LCS algorithm to determine what is the target path
+        // for the mod, i.e.:
+        //
+        // <modname>/<filename> -> GameData
+        // GameData/<modname>/<filename> -> GameData parent
         
-        var installed = self.config[KSPInstalledModsKey] as [String: [String]]
-        installed[mod.name] = files
-        self.config[KSPInstalledModsKey] = installed as AnyObject
-        if let e = self.saveConfig() {
-            NSLog("\terror installing \"\(mod.name)\": \(e.localizedDescription)")
-            return e
+        
+        switch mod.install(self) {
+        case (nil, let error):
+            return error
+        case (let files, nil):
+            // update config
+            // bug here --v--
+            var installed = self.config[KSPInstalledModsKey] as [String: [String]]
+            installed[mod.name] = files
+            self.config[KSPInstalledModsKey] = installed as AnyObject
+            if let e = self.saveConfig() {
+                return e
+            }
+        default:
+            println("should not be here")
         }
-        NSLog("\(mod.name) installed")
         return nil
     }
     
