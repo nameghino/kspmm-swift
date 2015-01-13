@@ -53,7 +53,9 @@ class KSPMod {
                 }
                 return (nil, installError)
             }
-            installed.append(indexEntry)
+            if countElements(indexEntry) != 0 {
+                installed.append(indexEntry)
+            }
         }
         return (installed, nil)
      }
