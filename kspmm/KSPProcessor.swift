@@ -56,7 +56,9 @@ class KSPProcessor {
     }
     
     class func initialConfig() -> [String: AnyObject] {
-        return [KSPInstalledModsKey: []]
+        var empty = [String: [String]]()
+        var config = [KSPInstalledModsKey: empty]
+        return config
     }
     
     class func configFileURL(directory: NSURL) -> NSURL {
@@ -130,7 +132,6 @@ class KSPProcessor {
             return error
         case (let files, nil):
             // update config
-            // bug here --v--
             var installed = self.config[KSPInstalledModsKey] as [String: [String]]
             installed[mod.name] = files
             self.config[KSPInstalledModsKey] = installed as AnyObject
