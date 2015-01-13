@@ -35,13 +35,28 @@ class KSPMod {
         self.archive = ar
     }
     
-    func urlInProcessor(processor: KSPProcessor) -> NSURL {
-        return NSURL()
-    }
-    
     func listFiles() -> [String] {
         return self.archive.listFiles()
     }
+    
+    func remove(processor: KSPProcessor) -> NSError? {
+        return nil
+    }
+    
+    func install(processor: KSPProcessor) -> ([String]?, NSError?) {
+        var installed = [String]()
+        for filepath in self.listFiles() {
+            let (targetURL, indexEntry) = processor.installURLForFile(filepath)
+            if let installError = self.archive.extractFile(filepath, toURL: targetURL) {
+                if let removeError = self.remove(processor) {
+                    return (nil, removeError)
+                }
+                return (nil, installError)
+            }
+            installed.append(indexEntry)
+        }
+        return (installed, nil)
+     }
     
     func gamedataFiles() -> [String] {
         return filter(self.listFiles()) {
