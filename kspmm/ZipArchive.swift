@@ -12,14 +12,20 @@ import Foundation
 class ZipArchive {
     
     let archive: ZZArchive
-    
+    let index: [String: ZZArchiveEntry]
     init?(file: NSURL) {
         var error: NSError?
+        var t_index = [String: ZZArchiveEntry]()
         self.archive = ZZArchive(URL: file, error: &error)
         if let e = error {
+            self.index = t_index
             println("error creating archive: \(e.localizedDescription)")
             return nil
         }
+        for entry in archive.entries as [ZZArchiveEntry] {
+            t_index[entry.fileName] = entry
+        }
+        self.index = t_index
     }
     
     func listFiles() -> [String] {
@@ -29,8 +35,32 @@ class ZipArchive {
         }
     }
     
+    func entryForPath(filepath: String) -> ZZArchiveEntry? {
+        if let e = self.index[filepath] {
+            return e
+        }
+        return nil
+    }
+    
     func extractFile(filepath: String, toURL url: NSURL) -> NSError? {
         println("extracting \"\(filepath)\" to \"\(url.absoluteString)\"")
+        if let entry = self.entryForPath(filepath) {
+            let fileManager = NSFileManager.defaultManager()
+            var error: NSError?
+            let directoryURL = url.URLByDeletingLastPathComponent!
+            
+            if !fileManager.fileExistsAtPath(directoryURL.absoluteString!) {
+                if !fileManager.createDirectoryAtURL(directoryURL, withIntermediateDirectories: true, attributes: nil, error: &error) {
+                    return error
+                }
+            }
+            
+            let fileData = entry.newDataWithError(&error)
+            if let e = error {
+                return e
+            }
+            fileData.writeToURL(url, atomically: false)
+        }
         return nil
     }
     
